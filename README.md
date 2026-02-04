@@ -36,14 +36,12 @@ aws eks update-kubeconfig --region us-east-1 --name project-bedrock-cluster
 I noticed the project instructions mentioned a dist/kubernetes folder, but that folder doesn't exist in the current version of the repository (it looks like they moved to Helm charts recently). To make sure I was still deploying the correct app without changing the code myself, I used the official kubernetes.yaml release link provided by the repo maintainers instead.
 
 kubectl create namespace retail-app
-
 # Deploy the microservices using the Official Release Manifest
 kubectl apply -f [https://github.com/aws-containers/retail-store-sample-app/releases/latest/download/kubernetes.yaml](https://github.com/aws-containers/retail-store-sample-app/releases/latest/download/kubernetes.yaml) -n retail-app
 
 ### 4. Change service type to LoadBalancer
 Expose the UI service to the internet and get the Load Balancer URL.
 kubectl patch service ui -n retail-app -p '{"spec": {"type": "LoadBalancer"}}'
-
 # Get the URL (Copy the EXTERNAL-IP)
 kubectl get svc ui -n retail-app
 
